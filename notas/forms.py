@@ -53,8 +53,6 @@ class loginForm(ModelForm):
         fields = ['usernameL', 'passwordL']
 
 class EventoForm(ModelForm):
-    email = forms.EmailField(label="Correo electrónico", widget=forms.EmailField())
-
     nombre = forms.CharField(max_length=100)
     lugar = forms.CharField(max_length=500)
     direccion = forms.CharField(max_length=500)
@@ -75,3 +73,7 @@ class EventoForm(ModelForm):
         (2, 'Presencial')
     )
     tipo = forms.ChoiceField(label="Tipo Evento", choices=TIPO_CHOICES)
+
+    class Meta:
+        model = Evento
+        fields = ['nombre', 'lugar', 'direccion', 'fecha_inicio', 'fecha_terminacion', 'categoria','tipo']

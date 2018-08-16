@@ -72,3 +72,53 @@ def index_view(request):
         return eventos_view(request)
     else:
         return login_view(request)
+
+def eventos_crate(request):
+    if request.user.is_authenticated():
+        if request.method == 'POST':
+            form = EventoForm(request.POST)
+            if form.is_valid():
+                cleaned_data = form.cleaned_data
+                nombre = cleaned_data.get('nombre')
+                lugar = cleaned_data.get('lugar')
+                direccion = cleaned_data.get('direccion')
+                tipo = cleaned_data.get('tipo')
+                categoria = cleaned_data.get('categoria')
+                fecha_inicio = cleaned_data.get('fecha_inicio')
+                fechafin = cleaned_data.get('fecha_terminacion')
+
+                evento = Evento.objects.create(usuario=request.user, nombre=nombre, lugar=lugar,
+                                               direccion=direccion, tipo=tipo,
+                                               categoria=categoria,fecha_inicio=fecha_inicio,
+                                               fecha_terminacion=fechafin)
+                evento.save()
+                messages.success(request, 'Se ha creado con éxito el evento',
+                                 extra_tags='alert alert-success')
+                return redirect(reverse('notas:index'))
+        else:
+            form = EventoForm()
+        return render(request, 'evento_crear.html', {'form': form})
+
+def evento_update(request,pk):
+    if request.user.is_authenticated():
+        evento = Evento.objects.get(id=pk)
+        if request.method == 'POST':
+            form = EventoForm(request.POST,instance=evento)
+            if form.is_valid():
+                cleaned_data = form.cleaned_data
+                evento.nombre = cleaned_data.get('nombre')
+                evento.lugar = cleaned_data.get('lugar')
+                evento.direccion = cleaned_data.get('direccion')
+                evento.tipo = cleaned_data.get('tipo')
+                evento.categoria = cleaned_data.get('categoria')
+                evento.fecha_inicio = cleaned_data.get('fecha_inicio')
+                evento.fecha_terminacion = cleaned_data.get('fecha_terminacion')
+
+                evento.save()
+                messages.success(request, 'Se ha actualizado con éxito el evento',
+                                 extra_tags='alert alert-success')
+                return redirect(reverse('notas:index'))
+        else:
+
+            form = EventoForm(instance=evento)
+        return render(request, 'evento_actualizar.html', {'form': form})

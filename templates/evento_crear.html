@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap3 %}
+{% block title %}Agregar Evento{% endblock %}
+
+{% block contenido  %}
+    <div >
+        <div class="centered"><h1>Agrega un evento a tu lista</h1></div>
+        <div class="formulario">
+            <form class="bs-example bs-example-form col-md-8" action="{% url 'notas:evento_create' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <br/>
+                <div class="row">
+                    <div class="centered">
+                        <button class="btn btn-success" id="boton_add"> Agregar </button>
+                        <a class="btn btn-danger" href="{% url 'notas:index' %}" class="cancel">Cancelar</a>
+                    </div>
+                    <br/>
+                </div>
+            </form>
+            <br/>
+        </div>
+    </div>
+{% endblock %}
+{% block extra_script %}
+    <script>
+
+    </script>
+{% endblock %}

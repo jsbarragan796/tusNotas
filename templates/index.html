@@ -22,16 +22,49 @@
                 </div>
             {% endif %}
             {% if  user.is_authenticated %}
+                <div class="modal fade" id="elminarModal" tabindex="-1" role="dialog" aria-labelledby="elminarModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="elminarModalLabel">Advertencia</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    Tenga en cuenta que eliminar un evento es un proceso irreversible.
+                                    Escriba el nombre del evento  para poder continuar.
+                                </p>
+
+                                <input onkeyup="deleteEnable()"  type="text" class="form-control" id="herramienta_name">
+                            </div>
+                            <div class="modal-footer">
+                                <form method="post"  >
+                                    {% csrf_token %}
+                                     <input type="hidden" id="idE" name="idE" value="0"/>
+                                    <button  type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                    <button id="eliminar_herramienta_btn_modal" class="btn btn-danger2" type="submit"  id="boton_eliminar_herramienta" disabled="true">Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                 <div class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Todos tus eventos</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h3 >Todos tus eventos</h3>
+                                    <h6> Selecciona un evento para ver el detalle</h6>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-success" href="{% url 'notas:evento_create' %}">Agregar evento </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="panel-body">
                             <div class="list-group">
                                 {% for evento in eventos %}
-                                    <a onclick="mostrarDetalle('{{ evento.lugar }}','{{ evento.direccion }}','{{ evento.fecha_inicio.date.isoformat }}','{{ evento.fecha_terminacion.date.isoformat }}','{{ evento.tipo }}','{{ evento.categoria }}','{{ evento.nombre}}');"
+                                    <a onclick="mostrarDetalle('{{ evento.lugar }}','{{ evento.direccion }}','{{ evento.fecha_inicio.date.isoformat }}','{{ evento.fecha_terminacion.date.isoformat }}','{{ evento.tipo }}','{{ evento.categoria }}','{{ evento.nombre}}','{{ evento.id}}');"
                                        class="list-group-item">
                                         {{ evento.nombre }}
                                     </a>
@@ -44,8 +77,16 @@
                 <div class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 id="tituloDetalle" class="panel-title">Detalle</h3>
-                            <h6> Selecciona un evento para ver el detalle</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h3 id="tituloDetalle" class="panel-title">Detalle</h3>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-success" href="{% url 'notas:evento_update' 3%}" >Editar</button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#elminarModal" >Elimiar</button>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -93,7 +134,11 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
 
-        function mostrarDetalle(lugarP,dire,ini,termi,tipo,cate,nombre) {
+        var seleccionado = 0;
+        var seleccionadonombre = "°°°";
+        function mostrarDetalle(lugarP,dire,ini,termi,tipo,cate,nombre,idE) {
+            seleccionado = idE;
+            seleccionadonombre = nombre;
             document.getElementById("tLugar").innerHTML = "Lugar: " + lugarP ;
             document.getElementById("tDireccion").innerHTML = "Dirección: " + dire;
             document.getElementById("tInicio").innerHTML = "Inicio: "+ini;
@@ -101,6 +146,21 @@
             document.getElementById("tTipo").innerHTML = "Tipo: "+tipo;
             document.getElementById("tCategoria").innerHTML = "Categoría: "+cate;
             document.getElementById("tituloDetalle").innerHTML = nombre;
+        }
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+
+        });
+        function deleteEnable(val) {
+            if(seleccionadonombre===val.toString()){
+                $('#eliminar_herramienta_btn_modal').removeClass("disabled");
+                $('#eliminar_herramienta_btn_modal').prop('disabled', false);
+                $('#idE').prop('value', seleccionado);
+            }else{
+                $('#eliminar_herramienta_btn_modal').addClass("disabled");
+                $('#eliminar_herramienta_btn_modal').prop('disabled', true);
+                $('#idE').prop('value', 0);
+            }
         }
     </script>
 {% endblock %}
