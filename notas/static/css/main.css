@@ -299,3 +299,7 @@ img {
 .item-publicar:hover{
     background-color: rgba(163, 178, 174, 0.73);
 }
+
+.table>tbody>tr>.align-middle {
+    vertical-align: middle;
+}

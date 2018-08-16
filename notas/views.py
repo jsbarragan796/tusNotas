@@ -20,9 +20,12 @@ def autenticacion(request):
         else:
             return login_view(request)
     else:
-        form = loginForm()
-        formregistro = UserForm()
-    return render(request, 'login.html', {'form': form, 'formRegistro': formregistro})
+        if request.user.is_authenticated:
+            return eventos_view(request)
+        else:
+            form = loginForm()
+            formregistro = UserForm()
+            return render(request, 'login.html', {'form': form, 'formRegistro': formregistro})
 
 def login_view(request):
     mensaje = ''

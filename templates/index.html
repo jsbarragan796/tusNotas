@@ -4,43 +4,87 @@
 {% block title %}Tus Eventos{% endblock %}
 
 {% block contenido  %}
-    <div class="contenido">
-        <div class="wrapper2 p10">
-            <div class="inicio">
-                <img src="{% static 'img/1.PNG.png' %}" alt="Logo tus eventos"/>
-            </div>
-            <div >
-                {% if messages %}
-                    <div>
-                        {% for message in messages %}
-                            <div class="{{message.tags}} alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <p id="mensaje">{{ message }}</p>
+    <div class="wrapper2 p10">
+        <div class="">
+            <img src="{% static 'img/1.PNG.png' %}" alt="Logo tus eventos"/>
+        </div>
+        <div >
+            {% if messages %}
+                <div>
+                    {% for message in messages %}
+                        <div class="{{message.tags}} alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <p id="mensaje">{{ message }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if  user.is_authenticated %}
+                <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Todos tus eventos</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="list-group">
+                                {% for evento in eventos %}
+                                    <a onclick="mostrarDetalle('{{ evento.lugar }}','{{ evento.direccion }}','{{ evento.fecha_inicio.date.isoformat }}','{{ evento.fecha_terminacion.date.isoformat }}','{{ evento.tipo }}','{{ evento.categoria }}','{{ evento.nombre}}');"
+                                       class="list-group-item">
+                                        {{ evento.nombre }}
+                                    </a>
+                                {% endfor %}
+                                <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
                             </div>
-                        {% endfor %}
+                        </div>
                     </div>
-                {% endif %}
-                {% if  user.is_authenticated %}
-                    <div class="row">
-                        {% for evento in eventos %}
-                            <div class="col-md-4">
-                                <a id="{{evento.nombre}}" data-toggle="tooltip" data-placement="auto"  title="Más información de {{ evento.nombre }}" href="">
-                                    <div class="card">
-                                        <div class="body-card">
-                                            <h4><b>{{evento.nombre}}</b></h4>
-                                            <p>{{ evento.lugar}}</p>
-                                        </div>
-                                    </div>
-                                </a>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 id="tituloDetalle" class="panel-title">Detalle</h3>
+                            <h6> Selecciona un evento para ver el detalle</h6>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td height="100"><strong>Ubicación </strong><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
+                                        <td id="tLugar" height="100" class="align-middle">Lugar: </td>
+                                        <td id="tDireccion" height="100" class="align-middle">Dirección:  </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="100"><strong>Fechas </strong><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
+                                        <td id="tInicio" height="100" class="align-middle">Inicio: </td>
+                                        <td id="tTerminacion" height="100" class="align-middle">Terminación:  </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="100"><strong>Detalles </strong><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
+                                        <td id="tCategoria" height="100" class="align-middle">Categoría: </td>
+                                        <td id="tTipo" height="100" class="align-middle">Tipo:  </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        {% endfor %}
+
+                        </div>
                     </div>
-                {% endif %}
+                </div>
+            {% endif %}
             </div>
         </div>
     </div>
+
 {% endblock %}
 
 {% block extra_script %}
@@ -48,5 +92,15 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
+
+        function mostrarDetalle(lugarP,dire,ini,termi,tipo,cate,nombre) {
+            document.getElementById("tLugar").innerHTML = "Lugar: " + lugarP ;
+            document.getElementById("tDireccion").innerHTML = "Dirección: " + dire;
+            document.getElementById("tInicio").innerHTML = "Inicio: "+ini;
+            document.getElementById("tTerminacion").innerHTML = "Terminación: "+termi;
+            document.getElementById("tTipo").innerHTML = "Tipo: "+tipo;
+            document.getElementById("tCategoria").innerHTML = "Categoría: "+cate;
+            document.getElementById("tituloDetalle").innerHTML = nombre;
+        }
     </script>
 {% endblock %}
