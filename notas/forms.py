@@ -7,7 +7,7 @@ from django.contrib.auth import password_validation
 
 
 class UserForm(ModelForm):
-    username = forms.EmailField(label="Correo electrónico",widget=forms.EmailField())
+    username = forms.EmailField(label="Correo electrónico", widget=forms.EmailInput())
     password = forms.CharField(label="Contraseña", widget=forms.PasswordInput())
     password2 = forms.CharField(label="Confirmación de contraseña", widget=forms.PasswordInput())
 
@@ -16,14 +16,14 @@ class UserForm(ModelForm):
         fields = ['username', 'password', 'password2']
 
     # verificacion correo unico
-    def verificar_email(self):
+    def clean_username(self):
         username = self.cleaned_data['username']
         if User.objects.filter(username=username):
             raise forms.ValidationError('Correo ya ha sido registrado')
         return username
 
     # verificacion las contraseñas coinciden y seguridad
-    def verificacion_password2(self):
+    def clean_password2(self):
         password = self.cleaned_data['password']
         password2 = self.cleaned_data['password2']
         if password != password2:
@@ -44,6 +44,13 @@ class UserForm(ModelForm):
             raise forms.ValidationError(mensajes)
         return password2
 
+class loginForm(ModelForm):
+    usernameL = forms.EmailField(label="Correo electrónico", widget=forms.EmailInput())
+    passwordL = forms.CharField(label="Contraseña", widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields = ['usernameL', 'passwordL']
 
 class EventoForm(ModelForm):
     email = forms.EmailField(label="Correo electrónico", widget=forms.EmailField())

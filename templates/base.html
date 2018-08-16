@@ -9,81 +9,73 @@
     {% load staticfiles %}
     {# Load CSS#}
     {% bootstrap_css %}
-    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/favicon-96x96.png' %}">
+    {#    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/favicon-96x96.png' %}">#}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
+{% if user.is_authenticated %}
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="{% url 'notas:index' %}">
+                    <img alt="logo Tus Eventos" height="51px" src="{% static 'img/2.PNG.png' %}">
+                </a>
+            </div>
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="{% url 'catalogo:index' %}">
-                <img alt="logo conectate" height="51px" src="{% static 'img/logo_navbar_black.png' %}">
-            </a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
-            <ul class="nav navbar-nav">
-                <li id="catalogoli" class="active">
-                    <a id="catalogoIndex" href="{% url 'catalogo:index' %}">Catálogo <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                {% if user.is_authenticated and user.perfil.role == 1 %}
-                    <li id="listUsersli">
-                        <a id="cuentasUsuario" href="{% url 'catalogo:users_list' %}" >Cuentas usuarios</a>
-                    </li>
-                    <li id="vigiaNav">
-                        <a id="vigia" href="{% url 'catalogo:vigia' %}" >Gestión de conocimiento</a>
-                    </li>
-                    <li id="mis_borradores_nav">
-                        <a id="mis_borradores" href="{% url 'catalogo:borradores' %}" >Mis borradores</a>
-                    </li>
-                     <li id="Notificaciones">
-                        <a id="mis_notificaciones" href="{% url 'catalogo:notificaciones' %}" >Notificaciones</a>
-                    </li>
-                {% elif user.is_authenticated and user.perfil.role == 2 %}
-                    <li id="vigiaNav">
-                        <a id="vigia" href="{% url 'catalogo:vigia' %}" >Gestión de conocimiento</a>
-                    </li>
-                    <li id="mis_borradores_nav">
-                        <a id="mis_borradores" href="{% url 'catalogo:borradores' %}" >Mis borradores</a>
-                    </li>
-                {% endif %}
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                {% if user.is_authenticated %}
-                    <li class="dropdown">
-                        <a id="usuario_loqueado_info" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            Cuenta: {{ user.first_name }} {{ user.last_name }}
-                            <span class="caret"></span>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+                <ul class="nav navbar-nav">
+                    <li id="catalogoli" class="active">
+                        <a id="notasIndex" href="{% url 'notas:index' %}">Tus Eventos <span class="sr-only">(current)</span>
                         </a>
-                        <ul class="dropdown-menu">
-                            {% if user.perfil.role == 1 %}
-                                <li><a href="{% url 'catalogo:user_update' user.id %}" class="btn btn-outline-success">Editar cuenta</a></li>
-                            {% else %}
-                                <li><a href="{% url 'catalogo:user_update_gti' user.id %}" class="btn btn-outline-success">Editar cuenta</a></li>
-                            {% endif %}
-                            <li><a href="{% url 'catalogo:user_change_password'%}" class="btn btn-outline-success">Cambio de Contraseña</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="{% url 'catalogo:logout' %}" class="btn btn-outline-success">Cerrar sesión</a></li>
-                        </ul>
                     </li>
-                {% elif not user.is_authenticated %}
-                    <li> <a href="{% url 'catalogo:login' %}" class="login-btn btn btn-outline-light" id="id_login">Inicio sesión</a></li>
-                {% endif %}
-            </ul>
+                    {#                {% if user.is_authenticated and user.perfil.role == 1 %}#}
+                    {#                    <li id="listUsersli">#}
+                    {#                        <a id="cuentasUsuario" href="{% url 'catalogo:users_list' %}" >Cuentas usuarios</a>#}
+                    {#                    </li>#}
+                    {#                    <li id="vigiaNav">#}
+                    {#                        <a id="vigia" href="{% url 'catalogo:vigia' %}" >Gestión de conocimiento</a>#}
+                    {#                    </li>#}
+                    {#                    <li id="mis_borradores_nav">#}
+                    {#                        <a id="mis_borradores" href="{% url 'catalogo:borradores' %}" >Mis borradores</a>#}
+                    {#                    </li>#}
+                    {#                     <li id="Notificaciones">#}
+                    {#                        <a id="mis_notificaciones" href="{% url 'catalogo:notificaciones' %}" >Notificaciones</a>#}
+                    {#                    </li>#}
+                    {#                {% elif user.is_authenticated and user.perfil.role == 2 %}#}
+                    {#                    <li id="vigiaNav">#}
+                    {#                        <a id="vigia" href="{% url 'catalogo:vigia' %}" >Gestión de conocimiento</a>#}
+                    {#                    </li>#}
+                    {#                    <li id="mis_borradores_nav">#}
+                    {#                        <a id="mis_borradores" href="{% url 'catalogo:borradores' %}" >Mis borradores</a>#}
+                    {#                    </li>#}
+                    {#                {% endif %}#}
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                        <li class="dropdown">
+                            <a id="usuario_loqueado_info" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Cuenta: {{ user.username }}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'notas:logout' %}" class="btn btn-outline-success">Cerrar sesión</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+{% endif %}
 <br/>
 <div class="contenido">
     {% block contenido  %}

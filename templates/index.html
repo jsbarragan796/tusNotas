@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block title %}Tus Eventos{% endblock %}
+
+{% block contenido  %}
+    <div class="contenido">
+        <div class="wrapper2 p10">
+            <div class="inicio">
+                <img src="{% static 'img/1.PNG.png' %}" alt="Logo tus eventos"/>
+            </div>
+            <div >
+                {% if messages %}
+                    <div>
+                        {% for message in messages %}
+                            <div class="{{message.tags}} alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <p id="mensaje">{{ message }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if  user.is_authenticated %}
+                    <div class="row">
+                        {% for evento in eventos %}
+                            <div class="col-md-4">
+                                <a id="{{evento.nombre}}" data-toggle="tooltip" data-placement="auto"  title="Más información de {{ evento.nombre }}" href="">
+                                    <div class="card">
+                                        <div class="body-card">
+                                            <h4><b>{{evento.nombre}}</b></h4>
+                                            <p>{{ evento.lugar}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_script %}
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+{% endblock %}
