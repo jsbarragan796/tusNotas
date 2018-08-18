@@ -13,15 +13,24 @@ from django.contrib import messages
 
 # Autenticación
 def autenticacion(request):
-    if request.method == 'POST':
-        registro = True if 'password2' in request.POST else False
-        if registro:
-            return usuario_create(request)
+
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            eliminar = True if 'idE' in request.POST else False
+            if eliminar:
+                pk = request.POST.get('idE')
+                evento = Evento.objects.get(id=pk)
+                return eliminar_evento(evento,request)
         else:
-            return login_view(request)
-    else:
-        if request.user.is_authenticated:
             return eventos_view(request)
+
+    else:
+        if request.method == 'POST':
+            registro = True if 'password2' in request.POST else False
+            if registro:
+                return usuario_create(request)
+            else:
+                return login_view(request)
         else:
             form = loginForm()
             formregistro = UserForm()
@@ -67,12 +76,6 @@ def eventos_view(request):
         return render(request, 'index.html', context)
 
 
-def index_view(request):
-    if request.user.is_authenticated():
-        return eventos_view(request)
-    else:
-        return login_view(request)
-
 def eventos_crate(request):
     if request.user.is_authenticated():
         if request.method == 'POST':
@@ -113,7 +116,6 @@ def evento_update(request,pk):
                 evento.categoria = cleaned_data.get('categoria')
                 evento.fecha_inicio = cleaned_data.get('fecha_inicio')
                 evento.fecha_terminacion = cleaned_data.get('fecha_terminacion')
-
                 evento.save()
                 messages.success(request, 'Se ha actualizado con éxito el evento',
                                  extra_tags='alert alert-success')
@@ -122,3 +124,9 @@ def evento_update(request,pk):
 
             form = EventoForm(instance=evento)
         return render(request, 'evento_actualizar.html', {'form': form})
+
+def eliminar_evento(evento, request):
+    evento.delete()
+    messages.success(request, 'Se ha eliminado con éxito a ' + str(evento.nombre),
+                     extra_tags='alert alert-success')
+    return redirect(reverse('notas:index'))

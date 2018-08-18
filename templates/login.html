@@ -4,7 +4,7 @@
 {% block title %}Tus Eventos{% endblock %}
 
 {% block contenido  %}
-    <div class="contenido">
+    <div >
         <div class="wrapper2 p10">
             <div >
                 {% if messages %}
@@ -25,28 +25,28 @@
                     </div>
                     <div class="formulario">
                         <div class="centered" id ="sesionBotones">
-                            <form class="bs-example bs-example-form col-md-8" action="{% url 'notas:login' %}" method="post">
+                            <form class="bs-example bs-example-form" action="{% url 'notas:login' %}" method="post">
                                 {% csrf_token %}
                                 {% bootstrap_form form %}
                                 <br/>
                                 <div class="row">
                                     <div class="centered">
                                         <button class="btn btn-success" id="boton_add"> Iniciar Sesión </button>
-                                        <button type="button" class="btn btn-danger2" onclick="cambioModo()">Registrarse</button>
+                                        <button type="button" class="btn btn-success" onclick="cambioModo()">Registrarse</button>
                                     </div>
                                     <br/>
                                 </div>
                             </form>
                         </div>
                         <div class="centered" id ="registroBotones" style="display: none;">
-                            <form class="bs-example bs-example-form col-md-8" action="{% url 'notas:usuario_create' %}" method="post">
+                            <form class="bs-example bs-example-form" action="{% url 'notas:usuario_create' %}" method="post">
                                 {% csrf_token %}
                                 {% bootstrap_form formRegistro %}
                                 <br/>
                                 <div class="row">
                                     <div class="centered">
                                         <button  type="submit" class="btn btn-success" >Registrate</button>
-                                        <button type="button" class="btn btn-danger2" onclick="cambioModo()" >Inicia Sesión</button>
+                                        <button type="button" class="btn btn-success" onclick="cambioModo()" >Inicia Sesión</button>
                                     </div>
                                     <br/>
                                 </div>

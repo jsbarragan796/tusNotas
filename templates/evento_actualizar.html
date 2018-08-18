@@ -7,7 +7,7 @@
     <div >
         <div class="centered"><h1>Editar evento</h1></div>
         <div class="formulario">
-            <form class="bs-example bs-example-form col-md-8" action="{% url 'notas:herramienta_create' %}" method="post" enctype="multipart/form-data">
+            <form class="bs-example bs-example-form col-md-8"  method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 <br/>

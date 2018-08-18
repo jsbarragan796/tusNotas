@@ -1,25 +1,10 @@
-/*@font-face {*/
-    /*font-family: "myfont";*/
-    /*src: url("./awesome-font-bold.woff") format('woff');*/
-    /*font-weight: bold;*/
-/*}*/
-
-body{
-    width: 100%;
-    height: 100%;
-    background: #ECECEC;
-}
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
 }
 
-a {
-    color: black ;
-}
-
 nav {
-    background-color: #518F89!important;
+    background-color: rgb(91, 173, 135)!important;
     font-family: 'Roboto Slab', serif;
 }
 div {
@@ -31,7 +16,7 @@ div {
 
 .navbar-default .navbar-nav>.active>a {
     color: white;
-    background-color: #518F89;
+    background-color: #D7AE55;
 }
 .navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>a:focus,
@@ -43,7 +28,7 @@ div {
 
 
 .dropdown-menu .divider {
-    background-color: #518F89;
+    background-color: #D7AE55;
 }
 
 .navbar-nav>li>.dropdown-menu{
@@ -69,7 +54,7 @@ div {
 }
 
 .inicio > img{
-    max-height: 210px;
+    max-height: 310px;
     max-width: 100%;
 }
 
@@ -79,151 +64,39 @@ div {
     background-color: white;
 }
 
-.search{
-    width: 100%;
-    height: 50px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding-bottom: 10px;
-}
-.searchTerm {
-    border: 3px solid #518F89;
-    padding: 5px;
-    border-radius: 5px;
-    outline: none;
-    color: #9DBFAF;
-}
-
-.searchTerm:focus{
-    color: #518F89;
-}
-
-.searchButton {
-    right: -50px;
-    width: 40px;
-    height: 36px;
-    border: 1px solid #518F89;
-    background: #518F89;
-    text-align: center;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-
-
-/*herramientas*/
-/* Add rounded corners to the top left and the top right corner of the image */
 img {
     border-radius: 5px 5px 0 0;
 }
 
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    border-radius: 5px; /* 5px rounded corners */
-    margin-bottom: 2vw;
-    height: 480px;
-    background-color: rgba(146, 178, 170, 0.73);
-}
-
-/* On mouse-over, add a deeper shadow */
-.card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-/* Add some padding inside the card container */
-.body-card {
-    padding: 1vw 1vw 1vw 1vw;
-    height: 240px;
-}
-
-.footer-card {
-    padding: 2px 16px;
-    height: 30px;
-}
-
-.logo-herramieta{
-    max-height: 170px;
-    max-width: 100%;
-    display: block;
-    margin: 0 auto;
-}
-.img-perfil {
-    max-height: 10vw;
-    display: block;
-    margin: 0 auto;
-}
-
-.float{
-    position:absolute;
-    width:40px;
-    height:40px;
-    right:10%;
-    background-color:#518F89;
-    color:#FFF;
-    border-radius:50px;
-    text-align:center;
-    box-shadow: 2px 2px 3px #999;
-}
-
-#boton_agregar_actividad {
-    width:30px;
-    height:30px;
-    margin-top: -5px;
-}
-
-#agregar_actividad_btn{
-    magin-top: 5em;
-}
-
-
-.my-float{
-    margin-top:12px;
-}
 .centered {
     display:flex;
     align-items:center;
     justify-content:center;
 }
-.centered-left {
-    position: relative;
-    top:0;
-    left: 0;
-    right: 0;
-    margin-right: 2vw;
-    margin-left: auto;
-}
-.bellow{
-    margin-top: 1vmax;
-}
-/*end herramientas*/
 
-/*botones*/
 .btn-success {
     color: #333333;
-    border-color: #518F89;
-    background-color: #ECECEC;
+    border-color: #D7AE55;
+    background-color: #b77b33eb;
+    margin: 5px 5px 5px 5px;
 }
 
 .btn-success:hover {
     color: white;
     border-color: #333333;
-    background-color: #518F89;
+    background-color: #D7AE55;
 }
 
 .btn-success:focus {
-    background-color: #518F89!important;
+    background-color: #D7AE55!important;
 }
 .btn-success:active {
-    background-color: #518F89!important;
+    background-color: #D7AE55!important;
 }
 
 .btn-danger {
     color: #333333;
-    background-color: #ECECEC;
+    background-color: #b77b33eb;
     border-color: #ff5c5c;
 }
 .btn-danger:hover {
@@ -252,7 +125,7 @@ img {
 .btn-danger2:active {
     background-color: #ff5c5c!important;
 }
-/*formularios*/
+
 .formulario {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
@@ -263,41 +136,17 @@ img {
     display:flex;
     align-items:center;
     justify-content:center;
-    background-color: rgba(146, 178, 170, 0.73);
+    background-color: rgb(91, 173, 135);
 }
 
-/* On mouse-over, add a deeper shadow */
 .formulario:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
-.detalle {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    border-radius: 5px; /* 5px rounded corners */
-    margin-bottom: 2vw;
-    min-height: 420px;
-    background-color: rgba(146, 178, 170, 0.73);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
 
 .panel-default>.panel-heading {
-    background-color: rgba(146, 178, 170, 0.73);
+    background-color: rgb(91, 173, 135);
     border-color: #000000;
-}
-
-
-.item-publicar{
-    background-color: rgba(146, 178, 170, 0.73);
-    border-width:1px 0;
-    border-color: #000000;
-
-}
-
-.item-publicar:hover{
-    background-color: rgba(163, 178, 174, 0.73);
 }
 
 .table>tbody>tr>.align-middle {
