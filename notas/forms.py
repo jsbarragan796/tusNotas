@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import forms
 from django.contrib.auth.models import User
 from notas.models import Evento
-from django.forms import extras
+from django.forms import widgets
 from django.contrib.auth import password_validation
 
 
@@ -58,10 +58,10 @@ class EventoForm(ModelForm):
     lugar = forms.CharField(max_length=500)
     direccion = forms.CharField(max_length=500)
 
-    fecha_inicio = forms.DateField(widget=extras.SelectDateWidget(
+    fecha_inicio = forms.DateField(widget=widgets.SelectDateWidget(
         empty_label=("Choose Year", "Choose Month", "Choose Day"),
     ))
-    fecha_terminacion =forms.DateField(widget=extras.SelectDateWidget(
+    fecha_terminacion =forms.DateField(widget=widgets.SelectDateWidget(
         empty_label=("Choose Year", "Choose Month", "Choose Day"),
     ))
     CATEGORIA_CHOICES = (

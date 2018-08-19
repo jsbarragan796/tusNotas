@@ -7,7 +7,7 @@ from django.db import models
 
 
 class Evento(models.Model):
-    usuario = models.ForeignKey(User, null=False)
+    usuario = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100, null=False, blank=False)
     lugar = models.CharField(max_length=500, null=False, blank=False)
     direccion = models.CharField(max_length=500, null=False, blank=False)

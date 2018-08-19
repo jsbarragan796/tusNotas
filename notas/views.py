@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.core.urlresolvers import reverse
-from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.urls import reverse
+from django.contrib.auth import authenticate, login, logout
 
 from notas.forms import UserForm, EventoForm , loginForm
 from django.contrib.auth.models import User
@@ -70,14 +70,14 @@ def logout_view(request):
 
 
 def eventos_view(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         eventos = Evento.objects.all().filter(usuario_id=request.user.id)
         context = {'eventos': eventos}
         return render(request, 'index.html', context)
 
 
 def eventos_crate(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         if request.method == 'POST':
             form = EventoForm(request.POST)
             if form.is_valid():
@@ -103,7 +103,7 @@ def eventos_crate(request):
         return render(request, 'evento_crear.html', {'form': form})
 
 def evento_update(request,pk):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         evento = Evento.objects.get(id=pk)
         if request.method == 'POST':
             form = EventoForm(request.POST,instance=evento)
